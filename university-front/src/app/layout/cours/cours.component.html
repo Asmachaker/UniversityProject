@@ -1,0 +1,68 @@
+<div [@routerTransition]>
+    <h2 class="page-header">
+        Cours
+    </h2>
+
+    <div class="row justify-content-end">
+        <div class="col align-self-end">
+            <button class="btn btn-success" (click)="open(content)">Ajouter un Cours</button>
+        </div>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Libelle</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let s of cours">
+                <td>{{s.codeC}}</td>
+                <td>{{s.libelleC}}</td>
+                <td>
+                    <button class="btn mr-1 btn-primary" (click)="edit(s, content)"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger" (click)="delete(s.codeC)"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Cours Form</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form role="form" class="editForm" novalidate
+              [formGroup]="coursForm">
+            <div class="row">
+                <div class='col-12 col-sm-4 col-md-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="codeC">Code</label>
+                        <input class="form-control input-md" formControlName="codeC" required id="codeC"
+                               name="codeC" readonly
+                               type="text">
+                    </div>
+                </div>
+                <div class='col-12 col-sm-8 col-md-8'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="libelleC">Libelle</label>
+                        <input class="form-control input-md" formControlName="libelleC" required id="libelleC"
+                               name="libelleC"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); save()">Save</button>
+    </div>
+</ng-template>

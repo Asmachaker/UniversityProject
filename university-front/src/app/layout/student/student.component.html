@@ -1,0 +1,81 @@
+<div [@routerTransition]>
+    <h2 class="page-header">
+        Students
+    </h2>
+
+    <div class="row justify-content-end">
+        <div class="col align-self-end">
+            <button class="btn btn-success" (click)="open(content)">Ajouter un etudiant</button>
+        </div>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>inscription date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let s of students">
+                <td>{{s.numInscription}}</td>
+                <td>{{s.prenomETU}}</td>
+                <td>{{s.nameETU}}</td>
+                <td>{{s.dateEntree | date}}</td>
+                <td>
+                    <button class="btn mr-1 btn-primary" (click)="edit(s, content)"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger" (click)="delete(s.numInscription)"><i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Student Form</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form role="form" class="editForm" novalidate
+              [formGroup]="studentForm">
+            <div class="row">
+                <div class='col-12 col-sm-4 col-md-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="num">Num Inscription</label>
+                        <input class="form-control input-md" formControlName="numInscription" required id="num"
+                               name="num" readonly
+                               type="text">
+                    </div>
+                </div>
+                <div class='col-12 col-sm-4 col-md-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="nameETU">Nom</label>
+                        <input class="form-control input-md" formControlName="nameETU" required id="nameETU"
+                               name="nameETU"
+                               type="text">
+                    </div>
+                </div>
+                <div class='col-12 col-sm-4 col-md-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="prenomETU">Prenom</label>
+                        <input class="form-control input-md" formControlName="prenomETU" required id="prenomETU"
+                               name="prenomETU"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); save()">Save</button>
+    </div>
+</ng-template>

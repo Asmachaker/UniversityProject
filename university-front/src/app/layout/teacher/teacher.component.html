@@ -1,0 +1,101 @@
+<div [@routerTransition]>
+    <h2 class="page-header">
+        Teachers
+    </h2>
+
+    <div class="row justify-content-end">
+        <div class="col align-self-end">
+            <button class="btn btn-success" (click)="open(content)">Ajouter un Enseignant</button>
+        </div>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>diplome</th>
+                <th>address</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let s of teachers">
+                <td>{{s.matricule}}</td>
+                <td>{{s.prenomENS}}</td>
+                <td>{{s.nomENS}}</td>
+                <td>{{s.diplome}}</td>
+                <td>{{s.adresseENS}}</td>
+                <td>
+                    <button class="btn mr-1 btn-primary" (click)="edit(s, content)"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger" (click)="delete(s.matricule)"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Teacher Form</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form role="form" class="editForm" novalidate
+              [formGroup]="teacherForm">
+            <div class="row">
+                <div class='col-12 col-sm-4 col-md-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="num">Matricule</label>
+                        <input class="form-control input-md" formControlName="matricule" required id="num"
+                               name="num" readonly
+                               type="text">
+                    </div>
+                </div>
+                <div class='col-12 col-sm-4 col-md-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="nameETU">Nom</label>
+                        <input class="form-control input-md" formControlName="nomENS" required id="nameETU"
+                               name="nameETU"
+                               type="text">
+                    </div>
+                </div>
+                <div class='col-12 col-sm-4 col-md-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="prenomETU">Prenom</label>
+                        <input class="form-control input-md" formControlName="prenomENS" required id="prenomETU"
+                               name="prenomETU"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-12 col-sm-8 col-md-8'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="adr">Adresse</label>
+                        <input class="form-control input-md" formControlName="adresseENS" required id="adr"
+                               name="adr"
+                               type="text">
+                    </div>
+                </div>
+                <div class='col-12 col-sm-4 col-md-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="dip">diplome</label>
+                        <input class="form-control input-md" formControlName="diplome" required id="dip"
+                               name="dip"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); save()">Save</button>
+    </div>
+</ng-template>
